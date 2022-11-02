@@ -19,8 +19,10 @@ spec:
       mountPath: /data/demo
     securityContext:
       allowPrivilegeEscalation: true
+      privileged: true
       capabilities:
         add: ["NET_RAW"]
   automountServiceAccountToken: true
   serviceAccountName: default
   hostNetwork: true
+  hostIPC: true
