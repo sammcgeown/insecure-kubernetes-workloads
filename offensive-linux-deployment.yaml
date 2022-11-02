@@ -17,5 +17,6 @@ spec:
     spec:
       containers:
       - name: offensive-linux
+        # Running offensive linux such as Kali in your cluster is not a great idea and could be a sign of compromise
         image: kalilinux/kali-rolling
         command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
