@@ -2,10 +2,12 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: pod-in-default-namespace
+  # Running workloads in your default namespace is not a great idea, it's better to use a dedicated namespace
   namespace: default
   labels:
     app: insecure-kubernetes-workloads
 spec:
+  # Automounted SA Tokens can be compromised
   automountServiceAccountToken: true
   containers:
   - name: nginx
