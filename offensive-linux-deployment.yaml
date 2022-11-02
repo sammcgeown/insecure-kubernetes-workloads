@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: offensive-linux-deployment
+  namespace: insecure-kubernetes-workloads
+  labels:
+    app: insecure-kubernetes-workloads
+spec:
+  selector:
+    matchLabels:
+      app: offensive-linux
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: offensive-linux
+    spec:
+      containers:
+      - name: offensive-linux
+        image: kalilinux/kali-rolling
+        command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: privilege-escalation-replicaset
+  namespace: insecure-kubernetes-workloads
+  labels:
+    app: privilege-escalation-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: privilege-escalation-replicaset
+  template:
+    metadata:
+      labels:
+        tier: privilege-escalation-replicaset
+    spec:
+      containers:
+      - name: privilege-escalation-replicaset
+        image: gcr.io/google-samples/hello-app:2.0
+        securityContext:
+          allowPrivilegeEscalation: true

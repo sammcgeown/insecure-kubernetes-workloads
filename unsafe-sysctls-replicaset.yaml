@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: unsafe-sysctls-replicaset
+  namespace: insecure-kubernetes-workloads
+  labels:
+    app: insecure-kubernetes-workloads
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: unsafe-sysctls-replicaset
+  template:
+    metadata:
+      labels:
+        tier: unsafe-sysctls-replicaset
+    spec:
+      securityContext:
+        sysctls:
+        - name: "kernel.msg"
+          value: "5"
+      containers:
+      - name: unsafe-sysctls-replicaset
+        image: gcr.io/google-samples/hello-app:2.0

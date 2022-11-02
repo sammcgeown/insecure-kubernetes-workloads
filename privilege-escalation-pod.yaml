@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: privilege-escalation-pod
+  namespace: insecure-kubernetes-workloads
+  labels:
+    app: insecure-kubernetes-workloads
+spec:
+  volumes:
+  - name: privilege-escalation-pod-vol
+    emptyDir: {}
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: privilege-escalation-pod-vol
+      mountPath: /data/demo
+    securityContext:
+      allowPrivilegeEscalation: true
+      capabilities:
+        add: ["NET_RAW"]
+  automountServiceAccountToken: true
+  serviceAccountName: default
+  hostNetwork: true
